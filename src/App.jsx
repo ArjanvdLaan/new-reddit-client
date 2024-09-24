@@ -48,7 +48,7 @@ const App = () => {
     // Fetch posts using the access token
     if (accessToken) {
       axios
-        .get('https://oauth.reddit.com/r/popular?raw_json=1', {
+        .get('https://oauth.reddit.com/r/pics?raw_json=1', {
           headers: { Authorization: `Bearer ${accessToken}` },
         })
         .then((response) => {

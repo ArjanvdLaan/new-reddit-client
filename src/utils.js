@@ -20,3 +20,10 @@ export const extractMediaUrl = (post) => {
   // Return the first available URL in the order of preference
   return previewUrl || galleryUrl || validThumbnailUrl || DEFAULT_REDDIT_LOGO_URL;
 };
+
+export const calculateHoursSincePost = (createdUtc) => {
+    const postDate = new Date(createdUtc * 1000); // Convert Unix timestamp to JavaScript Date object
+    const currentDate = new Date();
+    const diffInHours = Math.floor((currentDate - postDate) / (1000 * 60 * 60)); // Calculate difference in hours
+    return diffInHours;
+};
