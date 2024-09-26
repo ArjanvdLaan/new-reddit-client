@@ -2,16 +2,17 @@ import React from "react";
 import PostList from "./PostList";
 import Search from "./Search";
 import Title from "./Title";
+import LoadingPlaceholder from "./LoadingPlaceholder";
 import { extractMediaUrl, calculateHoursSincePost } from "../utils";
 import "./CSS/HomePage.css";
 
-const HomePage = ({ posts }) => {
+const HomePage = ({ posts, setPosts, loadMoreRef, isLoading }) => {
   return (
     <div>
       <div>
         <h1>Reddit Posts</h1>
         <ul>
-          {posts.slice(0, 3).map((post) => {
+          {posts.map((post) => {
             const mediaUrl = extractMediaUrl(post); // Get the media URL or fallback image
             const author = post.data.author; // Access the author's username
             const hoursSincePost = calculateHoursSincePost(
@@ -32,12 +33,12 @@ const HomePage = ({ posts }) => {
                     rel="noopener noreferrer"
                     className="image"
                   >
-                    {console.log("Post Preview Data:", post.data.preview)}
+                    {/* {console.log("Post Preview Data:", post.data.preview)} */}
 
                     <img
                       src={mediaUrl}
                       alt="Post Preview"
-                      style={{ maxWidth: "100%", height: "auto" }} // Optional styling for better display
+                      style={{ maxWidth: "100%" }}
                     />
                   </a>
                   <li className="info">
@@ -51,6 +52,20 @@ const HomePage = ({ posts }) => {
             );
           })}
         </ul>
+        {/* This element is observed to trigger loading more posts */}
+        <div
+          ref={loadMoreRef}
+          style={{ height: "100px", width: "100px", backgroundColor: "black" }}
+        >
+        {/* Show loading placeholders while fetching new posts */}
+        {isLoading && (
+          <>
+            <LoadingPlaceholder />
+            <LoadingPlaceholder />
+            <LoadingPlaceholder />
+          </>
+        )}
+        </div>
       </div>
       <Title />
       <Search />
