@@ -12,6 +12,7 @@ const HomePage = ({ posts, setPosts, loadMoreRef, isLoading }) => {
       <div>
         <h1>Reddit Posts</h1>
         <ul>
+          {console.log("Homepage gets rendered!")}
           {posts.map((post) => {
             const mediaUrl = extractMediaUrl(post); // Get the media URL or fallback image
             const author = post.data.author; // Access the author's username
@@ -55,7 +56,7 @@ const HomePage = ({ posts, setPosts, loadMoreRef, isLoading }) => {
         {/* This element is observed to trigger loading more posts */}
         <div
           ref={loadMoreRef}
-          style={{ height: "400px", width: "100px" }}
+          style={{ height: "350px", width: "100px" }}
         >
         {/* Show loading placeholders while fetching new posts */}
         {isLoading && (

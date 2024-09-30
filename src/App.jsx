@@ -96,6 +96,7 @@ const App = () => {
   useEffect(() => {
     console.log("Current Page:", page); // Log the current page number
     if (initialLoad) {
+      console.log("Skipping fetchPosts due to initial load and setting initialLoad to false")
       setInitialLoad(false);
     } else {
       fetchPosts(page);
