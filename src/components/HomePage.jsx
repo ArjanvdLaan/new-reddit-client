@@ -55,7 +55,7 @@ const HomePage = ({ posts, setPosts, loadMoreRef, isLoading }) => {
         {/* This element is observed to trigger loading more posts */}
         <div
           ref={loadMoreRef}
-          style={{ height: "500px", width: "100px" }}
+          style={{ height: "400px", width: "100px" }}
         >
         {/* Show loading placeholders while fetching new posts */}
         {isLoading && (
