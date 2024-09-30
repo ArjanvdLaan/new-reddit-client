@@ -1,0 +1,62 @@
+
+.placeholder-title {
+    grid-area: title;
+    /* font-size: 20px;
+    font-weight: bold; */
+    margin: 10px;
+    height: 80%;
+    background-color: #d0d0d0;
+  }
+  
+  .placeholder-upvotes {
+    grid-area: upvotes;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+
+  .upvote-bar {
+    background-color: #d0d0d0;
+    height: 40%;
+    width: 40%;
+  }
+  
+  .placeholder-image {
+    grid-area: image;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    height: 80%;
+    background-color: #d0d0d0;
+  }
+  
+  .placeholder-info {
+    grid-area: info;
+    display: flex;
+    align-items: flex-end;
+    background-color: #d0d0d0;
+    margin: 10px;
+    height: 80%;
+  }
+  
+  .loading-placeholder {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+      "title title title"
+      "upvotes image image"
+      ". info info";
+    list-style-type: none;
+    /* border: 2px solid black; */
+    margin: 10px;
+    padding: 10px;
+    height: 500px;
+    width: 600px;
+    /* box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75); */
+    border-radius: 5%;
+    background-color: #f0f0f0;
+  }

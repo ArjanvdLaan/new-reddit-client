@@ -31,14 +31,14 @@ const HomePage = ({ posts, setPosts, loadMoreRef, isLoading }) => {
                     href={post.data.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="image"
+                    className="anchor-tag"
                   >
                     {/* {console.log("Post Preview Data:", post.data.preview)} */}
 
                     <img
+                      className="image"
                       src={mediaUrl}
                       alt="Post Preview"
-                      style={{ maxWidth: "100%" }}
                     />
                   </a>
                   <li className="info">
@@ -55,13 +55,11 @@ const HomePage = ({ posts, setPosts, loadMoreRef, isLoading }) => {
         {/* This element is observed to trigger loading more posts */}
         <div
           ref={loadMoreRef}
-          style={{ height: "100px", width: "100px", backgroundColor: "black" }}
+          style={{ height: "500px", width: "100px" }}
         >
         {/* Show loading placeholders while fetching new posts */}
         {isLoading && (
           <>
-            <LoadingPlaceholder />
-            <LoadingPlaceholder />
             <LoadingPlaceholder />
           </>
         )}

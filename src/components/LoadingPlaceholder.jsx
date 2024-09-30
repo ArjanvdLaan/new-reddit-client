@@ -1,24 +1,17 @@
 import React from "react";
+import "./CSS/LoadingPlaceholder.css";
 
 const LoadingPlaceholder = () => {
-    return (
-        <div
-        style={{
-          padding: '20px',
-          background: '#e0e0e0',
-          borderRadius: '5px',
-          marginBottom: '10px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '10px',
-        }}
-      >
-        <div style={{ height: '20px', background: '#ccc', borderRadius: '4px', width: '60%' }}></div>
-        <div style={{ height: '150px', background: '#ddd', borderRadius: '4px' }}></div>
-        <div style={{ height: '20px', background: '#ccc', borderRadius: '4px', width: '80%' }}></div>
-        <div style={{ height: '20px', background: '#ccc', borderRadius: '4px', width: '50%' }}></div>
+  return (
+    <div className="loading-placeholder">
+      <div className="placeholder-title"></div>
+      <div className="placeholder-upvotes">
+        <div className="upvote-bar"></div>
       </div>
-    )
+      <div className="placeholder-image"></div>
+      <div className="placeholder-info"></div>
+    </div>
+  );
 };
 
 export default LoadingPlaceholder;
