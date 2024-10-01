@@ -30,7 +30,7 @@ const HomePage = ({ posts, setPosts, loadMoreRef, isLoading, accessToken }) => {
                     {post.data.title}
                   </li>
                   {/* <li className="upvotes">{upvotes} upvotes</li> */}
-                  <Vote posts={[post]} accessToken={accessToken} />
+                  <Vote post={post} accessToken={accessToken} />
                   <a
                     href={post.data.url}
                     target="_blank"
