@@ -2,11 +2,12 @@ import React from "react";
 import PostList from "./PostList";
 import Search from "./Search";
 import Title from "./Title";
+import Vote from "./Vote";
 import LoadingPlaceholder from "./LoadingPlaceholder";
 import { extractMediaUrl, calculateHoursSincePost } from "../utils";
 import "./CSS/HomePage.css";
 
-const HomePage = ({ posts, setPosts, loadMoreRef, isLoading }) => {
+const HomePage = ({ posts, setPosts, loadMoreRef, isLoading, accessToken }) => {
   return (
     <div className="homepage-container">
       <div className="title-container">
@@ -22,14 +23,14 @@ const HomePage = ({ posts, setPosts, loadMoreRef, isLoading }) => {
               post.data.created_utc
             ); // Calculate hours since posting
             const numComments = post.data.num_comments; // Access the number of comments
-            const upvotes = post.data.ups; // Access the number of upvotes
             return (
               <React.Fragment key={post.data.id}>
                 <div className="post">
                   <li className="title" key={post.data.id}>
                     {post.data.title}
                   </li>
-                  <li className="upvotes">{upvotes} upvotes</li>
+                  {/* <li className="upvotes">{upvotes} upvotes</li> */}
+                  <Vote posts={[post]} accessToken={accessToken} />
                   <a
                     href={post.data.url}
                     target="_blank"
@@ -61,7 +62,7 @@ const HomePage = ({ posts, setPosts, loadMoreRef, isLoading }) => {
           )}
         </div>
       </div>
-
+      
       <Search />
       <PostList />
     </div>
