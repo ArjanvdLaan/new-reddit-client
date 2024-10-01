@@ -8,9 +8,11 @@ import "./CSS/HomePage.css";
 
 const HomePage = ({ posts, setPosts, loadMoreRef, isLoading }) => {
   return (
-    <div>
+    <div className="homepage-container">
+      <div className="title-container">
+        <Title />
+      </div>
       <div>
-        <h1>Reddit Posts</h1>
         <ul>
           {console.log("Homepage gets rendered!")}
           {posts.map((post) => {
@@ -36,11 +38,7 @@ const HomePage = ({ posts, setPosts, loadMoreRef, isLoading }) => {
                   >
                     {/* {console.log("Post Preview Data:", post.data.preview)} */}
 
-                    <img
-                      className="image"
-                      src={mediaUrl}
-                      alt="Post Preview"
-                    />
+                    <img className="image" src={mediaUrl} alt="Post Preview" />
                   </a>
                   <li className="info">
                     <p>
@@ -54,19 +52,16 @@ const HomePage = ({ posts, setPosts, loadMoreRef, isLoading }) => {
           })}
         </ul>
         {/* This element is observed to trigger loading more posts */}
-        <div
-          ref={loadMoreRef}
-          style={{ height: "350px", width: "100px" }}
-        >
-        {/* Show loading placeholders while fetching new posts */}
-        {isLoading && (
-          <>
-            <LoadingPlaceholder />
-          </>
-        )}
+        <div ref={loadMoreRef} style={{ height: "350px", width: "100px" }}>
+          {/* Show loading placeholders while fetching new posts */}
+          {isLoading && (
+            <>
+              <LoadingPlaceholder />
+            </>
+          )}
         </div>
       </div>
-      <Title />
+
       <Search />
       <PostList />
     </div>
