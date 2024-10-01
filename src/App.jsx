@@ -145,7 +145,7 @@ const App = () => {
             isAuthenticated ? (
               <HomePage
                 posts={posts}
-                getAccesToken={accessToken}
+                accessToken={accessToken}
                 setPosts={setPosts}
                 loadMoreRef={loadMoreRef}
                 isLoading={isLoading}
