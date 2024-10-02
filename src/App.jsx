@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import LoginPage from "./components/LoginPage";
+import SubredditSelector from "./components/SubredditSelector";
 import { getRedditAuthUrl, getAccessToken } from "./auth";
 import axios from "axios";
 import "./App.css";
@@ -23,6 +24,7 @@ const App = () => {
   const loadMoreRef = useRef(null); // Ref for the "Load More" element
   const [after, setAfter] = useState(null); // State to keep track of the last post ID
   const [initialLoad, setInitialLoad] = useState(true);
+  const [subreddit, setSubreddit] = useState("pics");
 
   useEffect(() => {
     // Check if the URL has a code parameter
@@ -59,14 +61,14 @@ const App = () => {
   }, [authCode]);
 
   // Function to fetch posts from Reddit API
-  const fetchPosts = async (pageNum) => {
+  const fetchPosts = async (pageNum, selectedSubreddit) => {
     console.log("Fetching posts for page:", pageNum); // Debug log
     if (!accessToken) return; // Exit if accessToken is not available
     try {
       setIsLoading(true); // Set loading state to true while fetching
       // Fetch 3 posts per batch based on the page number
       const response = await axios.get(
-        `https://oauth.reddit.com/r/pics/hot?limit=3&raw_json=1${
+        `https://oauth.reddit.com/r/${selectedSubreddit}/hot?limit=3&raw_json=1${
           after ? `&after=${after}` : ""
         }`,
         {
@@ -92,16 +94,23 @@ const App = () => {
     }
   };
 
+  // Update subreddit when the user selects a different one
+  const handleSubredditChange = (newSubreddit) => {
+    setSubreddit(newSubreddit); // Update the subreddit
+  };
+
   // Fetch posts when the component mounts or when the page changes
   useEffect(() => {
     console.log("Current Page:", page); // Log the current page number
     if (initialLoad) {
-      console.log("Skipping fetchPosts due to initial load and setting initialLoad to false")
+      console.log(
+        "Skipping fetchPosts due to initial load and setting initialLoad to false"
+      );
       setInitialLoad(false);
     } else {
-      fetchPosts(page);
+      fetchPosts(page, subreddit);
     }
-  }, [page]);
+  }, [page, subreddit]);
 
   // Intersection Observer to detect when the "Load More" element comes into view
   useEffect(() => {
@@ -143,13 +152,16 @@ const App = () => {
           path="/"
           element={
             isAuthenticated ? (
-              <HomePage
-                posts={posts}
-                accessToken={accessToken}
-                setPosts={setPosts}
-                loadMoreRef={loadMoreRef}
-                isLoading={isLoading}
-              />
+              <div>
+                <SubredditSelector onSubredditChange={handleSubredditChange} />
+                <HomePage
+                  posts={posts}
+                  accessToken={accessToken}
+                  setPosts={setPosts}
+                  loadMoreRef={loadMoreRef}
+                  isLoading={isLoading}
+                />
+              </div>
             ) : (
               <Navigate to="/login" />
             )

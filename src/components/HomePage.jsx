@@ -29,8 +29,9 @@ const HomePage = ({ posts, setPosts, loadMoreRef, isLoading, accessToken }) => {
                   <li className="title" key={post.data.id}>
                     {post.data.title}
                   </li>
-                  {/* <li className="upvotes">{upvotes} upvotes</li> */}
-                  <Vote post={post} accessToken={accessToken} />
+                  <div className="vote-container">
+                    <Vote post={post} accessToken={accessToken} />
+                  </div>
                   <a
                     href={post.data.url}
                     target="_blank"
@@ -62,7 +63,7 @@ const HomePage = ({ posts, setPosts, loadMoreRef, isLoading, accessToken }) => {
           )}
         </div>
       </div>
-      
+
       <Search />
       <PostList />
     </div>

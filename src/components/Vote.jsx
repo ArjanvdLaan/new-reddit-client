@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
-import { voteOnPost } from '../vote.js';
-import './CSS/Vote.css';
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
+import { voteOnPost } from "../vote.js";
+import "./CSS/Vote.css";
 
 const Vote = ({ post, accessToken }) => {
   const postId = post.data.id;
@@ -45,15 +45,16 @@ const Vote = ({ post, accessToken }) => {
   };
 
   return (
-    <div>
-      <p>{upvotes} upvotes</p>
-
-      {/* Upvote and Downvote buttons */}
+    <div className="votes-container">
       <FontAwesomeIcon
         icon={faArrowUp}
         onClick={handleUpvote}
         className="upvote-button"
       />
+      <p className="total-votes">{upvotes}</p>
+
+      {/* Upvote and Downvote buttons */}
+
       <FontAwesomeIcon
         icon={faArrowDown}
         onClick={handleDownvote}

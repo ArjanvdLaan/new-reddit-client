@@ -5,9 +5,6 @@ import { Buffer } from 'buffer'; // Import Buffer from the buffer package
 const CLIENT_ID = import.meta.env.VITE_REDDIT_CLIENT_ID;
 const CLIENT_SECRET = import.meta.env.VITE_REDDIT_CLIENT_SECRET;
 const REDIRECT_URI = import.meta.env.VITE_REDDIT_REDIRECT_URI;
-console.log('CLIENT_ID:', CLIENT_ID);
-console.log('CLIENT_SECRET:', CLIENT_SECRET);
-console.log('REDIRECT_URI:', REDIRECT_URI);
 
 const AUTHORIZATION_HEADER = `Basic ${Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')}`;
 
