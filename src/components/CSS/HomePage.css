@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+.space-div {
+  height: 70px;
+}
+
 .homepage-container {
   position: relative; /* Ensure the container is positioned relative to its parent */
   /* min-height: 100vh; Ensure the container takes the full viewport height */
@@ -46,23 +50,6 @@ ul {
   align-items: center;
 }
 
-.anchor-tag {
-  grid-area: image;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
-
-.image {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-  
-}
-
 .info {
   grid-area: info;
   display: flex;
@@ -80,7 +67,7 @@ ul {
   grid-template-areas:
     "title title title"
     "upvotes image image"
-    ". info info";
+    "nada info info";
   list-style-type: none;
   border: 1px solid beige;
   margin: 10px;
@@ -91,3 +78,11 @@ ul {
   border-radius: 5%;
 }
 
+.nada {
+  grid-area: nada;
+}
+
+.nada, .info {
+  border-top: 2px solid rgb(242, 240, 240);
+  margin-top: 10px;
+}

@@ -3,6 +3,7 @@ import PostList from "./PostList";
 import Search from "./Search";
 import Title from "./Title";
 import Vote from "./Vote";
+import MediaViewer from "./MediaViewer";
 import LoadingPlaceholder from "./LoadingPlaceholder";
 import { extractMediaUrl, calculateHoursSincePost } from "../utils";
 import "./CSS/HomePage.css";
@@ -10,6 +11,7 @@ import "./CSS/HomePage.css";
 const HomePage = ({ posts, setPosts, loadMoreRef, isLoading, accessToken }) => {
   return (
     <div className="homepage-container">
+      <div className="space-div"></div>
       <div className="title-container">
         <Title />
       </div>
@@ -32,16 +34,9 @@ const HomePage = ({ posts, setPosts, loadMoreRef, isLoading, accessToken }) => {
                   <div className="vote-container">
                     <Vote post={post} accessToken={accessToken} />
                   </div>
-                  <a
-                    href={post.data.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="anchor-tag"
-                  >
-                    {/* {console.log("Post Preview Data:", post.data.preview)} */}
-
-                    <img className="image" src={mediaUrl} alt="Post Preview" />
-                  </a>
+                  <MediaViewer post={post} mediaUrl={mediaUrl}/>
+                  
+                   <li className="nada"></li> {/*for styling purposes */}
                   <li className="info">
                     <p>
                       Posted by {author} • {hoursSincePost} hours ago •{" "}

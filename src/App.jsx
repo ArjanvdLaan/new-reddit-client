@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -64,6 +64,11 @@ const App = () => {
   const fetchPosts = async (pageNum, selectedSubreddit) => {
     console.log("Fetching posts for page:", pageNum); // Debug log
     if (!accessToken) return; // Exit if accessToken is not available
+
+    // Check if a new subreddit is chosen
+    console.log("Selected Subreddit:", selectedSubreddit);
+    console.log("Current Subreddit:", subreddit);
+
     try {
       setIsLoading(true); // Set loading state to true while fetching
       // Fetch 3 posts per batch based on the page number
@@ -96,24 +101,34 @@ const App = () => {
 
   // Update subreddit when the user selects a different one
   const handleSubredditChange = (newSubreddit) => {
+    console.log("handleSubredditChange is run with:", newSubreddit);
     setSubreddit(newSubreddit); // Update the subreddit
+    setPosts([]); // Clear old posts
+    setPage(1); // Reset page number
+    setAfter(null); // Reset the last post ID
+    setInitialLoad(true); // Set initialLoad to true to skip fetching posts on initial render
   };
 
   // Fetch posts when the component mounts or when the page changes
   useEffect(() => {
-    console.log("Current Page:", page); // Log the current page number
+    console.log("Current Page:", page); 
+    console.log("Third useEffect is run with:", subreddit);
+    console.log("Dependencies: page =", page, ", subreddit =", subreddit);
+    // Log the current page number
     if (initialLoad) {
       console.log(
         "Skipping fetchPosts due to initial load and setting initialLoad to false"
       );
       setInitialLoad(false);
     } else {
+      console.log("not skipping initial load")
       fetchPosts(page, subreddit);
     }
   }, [page, subreddit]);
 
   // Intersection Observer to detect when the "Load More" element comes into view
   useEffect(() => {
+    console.log("useEffect intersection observer is run")
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && !isLoading) {
