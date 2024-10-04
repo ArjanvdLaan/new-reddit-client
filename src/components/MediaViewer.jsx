@@ -5,6 +5,8 @@ const MediaViewer = ({ post, mediaUrl, postUrl }) => {
   const [isOpen, setIsOpen] = useState(false);
   const postData = post.data;
   console.log("Post Data:", postData);
+  console.log("Media URL:", mediaUrl);
+  console.log("Post URL:", postUrl);
 
   // Function to open the MediaViewer
   const openViewer = () => {
@@ -18,6 +20,13 @@ const MediaViewer = ({ post, mediaUrl, postUrl }) => {
     document.body.style.overflow = "auto"; // Re-enable scrolling when the modal is closed
   };
 
+  // Function to check if the mediaUrl is a fallback video
+  const isVideoFallback = (url) => {
+    const isFallback = url.toLowerCase().endsWith("fallback");
+    console.log("Is Fallback:", isFallback);
+    return isFallback;
+  };
+
   return (
     <>
       <a
@@ -27,13 +36,49 @@ const MediaViewer = ({ post, mediaUrl, postUrl }) => {
         className="anchor-tag"
       >
         {/* {console.log("Post Preview Data:", post.data.preview)} */}
-
-        <img className="image" src={mediaUrl} alt="Post Preview" onClick={openViewer} />
+        {typeof mediaUrl === "string" && !mediaUrl.startsWith("http") ? (
+          <div className="text-content" onClick={openViewer}>
+            {mediaUrl}
+          </div>
+        ) : isVideoFallback(mediaUrl) ? (
+          <video
+            className="video"
+            src={mediaUrl}
+            controls
+            onClick={openViewer}
+          />
+        ) : (
+          <img
+            className="image"
+            src={mediaUrl}
+            alt="Post Preview"
+            onClick={openViewer}
+          />
+        )}
       </a>
       {/* Fullscreen MediaViewer when open */}
       {isOpen && (
         <div className="media-viewer-overlay">
           <div className="media-viewer-content">
+          {typeof mediaUrl === "string" && !mediaUrl.startsWith("http") ? (
+          <div className="text-content-fullscreen" onClick={openViewer}>
+            {mediaUrl}
+          </div>
+        ) : isVideoFallback(mediaUrl) ? (
+          <video
+            className="video"
+            src={mediaUrl}
+            controls
+            onClick={openViewer}
+          />
+        ) : (
+          <img
+            className="image"
+            src={mediaUrl}
+            alt="Post Preview"
+            onClick={openViewer}
+          />
+        )}
             <button className="close-btn" onClick={closeViewer}>
               X
             </button>
@@ -45,11 +90,6 @@ const MediaViewer = ({ post, mediaUrl, postUrl }) => {
             >
               View Original Post
             </a>
-            <img
-              src={mediaUrl}
-              alt="Full screen media"
-              className="media-full"
-            />
           </div>
         </div>
       )}

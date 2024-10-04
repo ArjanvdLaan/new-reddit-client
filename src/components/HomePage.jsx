@@ -24,6 +24,7 @@ const HomePage = ({ posts, setPosts, loadMoreRef, isLoading, accessToken }) => {
             const hoursSincePost = calculateHoursSincePost(
               post.data.created_utc
             ); // Calculate hours since posting
+            const postUrl = post.data.url; // Access the URL of the post
             const numComments = post.data.num_comments; // Access the number of comments
             return (
               <React.Fragment key={post.data.id}>
@@ -34,7 +35,7 @@ const HomePage = ({ posts, setPosts, loadMoreRef, isLoading, accessToken }) => {
                   <div className="vote-container">
                     <Vote post={post} accessToken={accessToken} />
                   </div>
-                  <MediaViewer post={post} mediaUrl={mediaUrl}/>
+                  <MediaViewer post={post} mediaUrl={mediaUrl} postUrl={postUrl}/>
                   
                    <li className="nada"></li> {/*for styling purposes */}
                   <li className="info">
