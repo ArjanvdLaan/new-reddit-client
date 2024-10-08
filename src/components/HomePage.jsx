@@ -35,9 +35,12 @@ const HomePage = ({ posts, setPosts, loadMoreRef, isLoading, accessToken }) => {
                   <div className="vote-container">
                     <Vote post={post} accessToken={accessToken} />
                   </div>
-                  <MediaViewer post={post} mediaUrl={mediaUrl} postUrl={postUrl}/>
-                  
-                   <li className="nada"></li> {/*for styling purposes */}
+                  <MediaViewer
+                    post={post}
+                    mediaUrl={mediaUrl}
+                    postUrl={postUrl}
+                  />
+                  <li className="nada"></li> {/*for styling purposes */}
                   <li className="info">
                     <p>
                       Posted by {author} • {hoursSincePost} hours ago •{" "}
