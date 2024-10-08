@@ -11,27 +11,24 @@
     align-items: center;
     flex-direction: column;
     height: 5vh;
-    /* border: 2px solid black; */
 }
 
 .Codecademy-logo {
     position: fixed;
-    bottom: 15%;
+    bottom: 12%;
     right: 0;
-    width: 150px;
-    height: 30px;
+    width: 50px;
+    height: 40px;
     margin-right: 5px;
-    /* margin: 0 auto; */
-    /* display: inline-block; */
+    border-radius: 5px;
 }
 
-.Reddit-logo {
+.reddit-icon {
     position: fixed;
-    bottom: 19%;
-    left: 88vw;
-    width: 200px;
-    height: 100px;
-    right: -5px;
-    /* margin: 0 auto; */
-    /* display: inline-block; */
+    bottom: 18%;
+    right: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 5% 0 0 5%;
+    margin-right: 5px;
 }
