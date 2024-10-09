@@ -1,7 +1,7 @@
 import React from "react";
 import PostList from "./PostList";
 import Search from "./Search";
-import Title from "./Title";
+import Icons from "./Icons";
 import Vote from "./Vote";
 import MediaViewer from "./MediaViewer";
 import LoadingPlaceholder from "./LoadingPlaceholder";
@@ -13,7 +13,7 @@ const HomePage = ({ posts, setPosts, loadMoreRef, isLoading, accessToken }) => {
     <div className="homepage-container">
       <div className="space-div"></div>
       <div className="title-container">
-        <Title />
+        <Icons />
       </div>
       <div>
         <ul>
@@ -21,6 +21,7 @@ const HomePage = ({ posts, setPosts, loadMoreRef, isLoading, accessToken }) => {
           {posts.map((post) => {
             const mediaUrl = extractMediaUrl(post); // Get the media URL or fallback image
             const author = post.data.author; // Access the author's username
+            const galleryData = post.data.gallery_data ? post.data.gallery_data : null;
             const hoursSincePost = calculateHoursSincePost(
               post.data.created_utc
             ); // Calculate hours since posting
@@ -39,6 +40,7 @@ const HomePage = ({ posts, setPosts, loadMoreRef, isLoading, accessToken }) => {
                     post={post}
                     mediaUrl={mediaUrl}
                     postUrl={postUrl}
+                    galleryData={galleryData}
                   />
                   <li className="nada"></li> {/*for styling purposes */}
                   <li className="info">

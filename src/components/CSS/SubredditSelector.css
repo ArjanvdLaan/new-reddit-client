@@ -17,16 +17,14 @@
 }
 
 #subreddit-select {
-  /* appearance: none; */
   display: flex;
   justify-content: center;
   border: none;
   outline: none;
   border-radius: 10px;
-  height: 1.2em;
-  width: 14em;
-  font-size: 1.3em;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  height: 1.5em;
+  font-size: 1.7em;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-weight: bold;
   width: 320px;
 }
@@ -34,5 +32,4 @@
 #subreddit-select:hover {
   cursor: pointer;
   background-color: #f4f1f1;
-
 }

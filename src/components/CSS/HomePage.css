@@ -15,10 +15,9 @@
 
 .title-container {
   position: fixed; /* Position the container absolutely */
-  bottom: 10px; 
-  right: 10px; 
+  bottom: 10px;
+  right: 10px;
   /* height: 100px; Set the height of the container */
-
 }
 
 .vote-container {
@@ -41,7 +40,7 @@ ul {
   font-weight: bold;
   margin-bottom: 10px;
   overflow: hidden;
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 .upvotes {
@@ -57,10 +56,9 @@ ul {
   align-items: flex-end;
   font-weight: bold;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: .7em;
+  font-size: 0.7em;
   justify-content: center;
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 .post {
@@ -86,7 +84,8 @@ ul {
   grid-area: nada;
 }
 
-.nada, .info {
+.nada,
+.info {
   border-top: 2px solid rgb(242, 240, 240);
   margin-top: 10px;
 }
