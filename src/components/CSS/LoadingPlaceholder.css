@@ -1,83 +1,78 @@
-
 .placeholder-title {
-    grid-area: title;
-    margin: 10px;
-    height: 80%;
-    background-color: #d0d0d0;
-  }
-  
-  .placeholder-upvotes {
-    grid-area: upvotes;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-  }
-
-  .upvote-bar {
-    background-color: #d0d0d0;
-    height: 40%;
-    width: 40%;
-  }
-  
-  .placeholder-image {
-    grid-area: image;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 10px;
-    height: 80%;
-    background-color: #d0d0d0;
-  }
-  
-  .placeholder-info {
-    grid-area: info;
-    display: flex;
-    align-items: flex-end;
-    background-color: #d0d0d0;
-    margin: 10px;
-    height: 80%;
-  }
-  
-  .loading-placeholder {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-areas:
-      "title title title"
-      "upvotes image image"
-      ". info info";
-    list-style-type: none;
-    margin: 10px;
-    padding: 10px;
-    height: 500px;
-    width: 600px;
-    border-radius: 5%;
-    background-color: #f0f0f0;
-  
-    /* animation */
-    animation: fadeInAnimation ease .5s;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-  }
-
-  .container {
-    width: 98vw;
-    display: flex;
-    flex-direction: column;
-    justify-items: center;
-    justify-content: center; 
-    align-items: center; 
-  }
-
-  @keyframes fadeInAnimation {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
+  grid-area: title;
+  margin: 10px;
+  height: 80%;
 }
 
+.placeholder-image {
+  grid-area: image;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  height: 80%;
+}
+
+.placeholder-info {
+  grid-area: info;
+  display: flex;
+  align-items: flex-end;
+  margin: 10px;
+  height: 80%;
+}
+
+.loading-placeholder {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas:
+    "title title title"
+    "image image image"
+    "info info info";
+  list-style-type: none;
+  margin: 10px;
+  padding: 10px;
+  height: 500px;
+  width: 600px;
+  border-radius: 5%;
+  background-color: #f0f0f0;
+
+  /* animation */
+  animation: fadeInAnimation ease 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+.container {
+  width: 98vw;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.placeholder-title,
+.placeholder-image,
+.placeholder-info {
+  background: linear-gradient(to right, #eee 40%, #fafafa 50%, #eee 60%);
+  background-size: 300%;
+  background-position-x: 100%;
+  animation: shimmer 1s infinite linear;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  to {
+    background-position-x: 0%;
+  }
+}
