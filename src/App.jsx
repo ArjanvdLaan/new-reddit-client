@@ -60,44 +60,65 @@ const App = () => {
     }
   }, [authCode]);
 
-  // Function to fetch posts from Reddit API
-  const fetchPosts = async (pageNum, selectedSubreddit) => {
-    console.log("Fetching posts for page:", pageNum); // Debug log
-    if (!accessToken) return; // Exit if accessToken is not available
+// Function to fetch posts from Reddit API
+const fetchPosts = async (pageNum, selectedSubreddit) => {
+  console.log("Fetching posts for page:", pageNum); // Debug log
+  if (!accessToken) return; // Exit if accessToken is not available
 
-    // Check if a new subreddit is chosen
-    console.log("Selected Subreddit:", selectedSubreddit);
-    console.log("Current Subreddit:", subreddit);
+  try {
+    setIsLoading(true); // Set loading state to true while fetching
+    
+    let validPosts = []; // Array to collect valid posts
+    let currentAfter = after; // Keep track of current 'after' parameter
 
-    try {
-      setIsLoading(true); // Set loading state to true while fetching
-      // Fetch 3 posts per batch based on the page number
+    // Keep fetching until we have 3 valid posts
+    while (validPosts.length < 3) {
+      // Fetch 10 posts in one go to increase the chances of getting 3 valid ones
       const response = await axios.get(
-        `https://oauth.reddit.com/r/${selectedSubreddit}/hot?limit=3&raw_json=1${
-          after ? `&after=${after}` : ""
+        `https://oauth.reddit.com/r/${selectedSubreddit}/hot?limit=10&raw_json=1${
+          currentAfter ? `&after=${currentAfter}` : ""
         }`,
         {
           headers: { Authorization: `Bearer ${accessToken}` },
         }
       );
-      // Append the new posts to the existing posts
-      setPosts((prevPosts) => [...prevPosts, ...response.data.data.children]);
-      // Update the 'after' parameter with the ID of the last post in the current batch
-      setAfter(response.data.data.after);
-      console.log("Posts Retrieved:", response.data.data.children);
-    } catch (error) {
-      console.error("Failed to fetch posts:", error);
-      if (error.response?.status === 401) {
-        // Handle expired or invalid token by clearing it and redirecting to reauthorize
-        console.log("Access Token expired or invalid. Re-authorizing...");
-        localStorage.removeItem("accessToken");
-        setAccessToken(null);
-        window.location.href = getRedditAuthUrl(); // Redirect to reauthorize
+
+      // Filter out the posts with a 'selftext' property
+      const newPosts = response.data.data.children.filter(
+        (post) => !post.data.selftext
+      );
+
+      // Add valid posts to our collection
+      validPosts = [...validPosts, ...newPosts];
+
+      // Update 'after' parameter to continue fetching from where we left off
+      currentAfter = response.data.data.after;
+
+      // If there's no more 'after' value from Reddit, break to prevent infinite loop
+      if (!currentAfter) {
+        break;
       }
-    } finally {
-      setIsLoading(false); // Set loading state to false once fetching is complete
     }
-  };
+
+    // Limit to 3 valid posts if more than 3 were collected
+    validPosts = validPosts.slice(0, 3);
+
+    // Update the state with the valid posts
+    setPosts((prevPosts) => [...prevPosts, ...validPosts]);
+    setAfter(currentAfter); // Save the current 'after' parameter for the next fetch
+    console.log("Valid Posts Retrieved:", validPosts);
+  } catch (error) {
+    console.error("Failed to fetch posts:", error);
+    if (error.response?.status === 401) {
+      console.log("Access Token expired or invalid. Re-authorizing...");
+      localStorage.removeItem("accessToken");
+      setAccessToken(null);
+      window.location.href = getRedditAuthUrl(); // Redirect to reauthorize
+    }
+  } finally {
+    setIsLoading(false); // Set loading state to false once fetching is complete
+  }
+};
 
   // Update subreddit when the user selects a different one
   const handleSubredditChange = (newSubreddit) => {
@@ -111,7 +132,7 @@ const App = () => {
 
   // Fetch posts when the component mounts or when the page changes
   useEffect(() => {
-    console.log("Current Page:", page); 
+    console.log("Current Page:", page);
     console.log("Third useEffect is run with:", subreddit);
     console.log("Dependencies: page =", page, ", subreddit =", subreddit);
     // Log the current page number
@@ -121,14 +142,14 @@ const App = () => {
       );
       setInitialLoad(false);
     } else {
-      console.log("not skipping initial load")
+      console.log("not skipping initial load");
       fetchPosts(page, subreddit);
     }
   }, [page, subreddit]);
 
   // Intersection Observer to detect when the "Load More" element comes into view
   useEffect(() => {
-    console.log("useEffect intersection observer is run")
+    console.log("useEffect intersection observer is run");
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && !isLoading) {

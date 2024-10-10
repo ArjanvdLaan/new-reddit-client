@@ -14,6 +14,7 @@ const subredditOptions = [
   { name: "r/CityPorn", value: "CityPorn" },
   { name: "r/Wallpaper", value: "wallpaper" },
   { name: "r/SpacePorn", value: "SpacePorn" },
+  { name: "r/travel", value: "travel" },
 ];
 
 const SubredditSelector = ({ onSubredditChange }) => {

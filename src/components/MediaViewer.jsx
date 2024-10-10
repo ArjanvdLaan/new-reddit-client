@@ -7,7 +7,9 @@ const MediaViewer = ({ post, mediaUrl, postUrl, galleryData }) => {
 
   // Function to open the MediaViewer
   const openViewer = () => {
+    
     setIsOpen(true);
+    console.log("Opening MediaViewer isOpen:", isOpen);
     document.body.style.overflow = "hidden"; // Disable scrolling when the modal is open
   };
 
@@ -63,7 +65,7 @@ const MediaViewer = ({ post, mediaUrl, postUrl, galleryData }) => {
           />
         ) : galleryData ? (
           // Show "Gallery" indicator if there are multiple images
-          <div className="gallery-indicator-container">
+          <div className={`gallery-indicator-container ${isOpen ? "hide-indicators" : ""}`}>
             <img
               className="image-indicator"
               src={mediaUrl}
@@ -102,7 +104,7 @@ const MediaViewer = ({ post, mediaUrl, postUrl, galleryData }) => {
                   {"<"}
                 </button>
                 <img
-                  className="image"
+                  className="gallery-image"
                   src={mediaUrl}
                   alt="Post Preview"
                   onClick={openViewer}
