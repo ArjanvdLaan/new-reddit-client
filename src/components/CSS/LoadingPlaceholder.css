@@ -59,6 +59,7 @@
   background-size: 300%;
   background-position-x: 100%;
   animation: shimmer 1s infinite linear;
+  border-radius: 5%;
 }
 
 @keyframes fadeInAnimation {

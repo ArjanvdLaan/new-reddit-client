@@ -1,6 +1,4 @@
 import React from "react";
-import PostList from "./PostList";
-import Search from "./Search";
 import Icons from "./Icons";
 import Vote from "./Vote";
 import MediaViewer from "./MediaViewer";
@@ -21,7 +19,9 @@ const HomePage = ({ posts, setPosts, loadMoreRef, isLoading, accessToken }) => {
           {posts.map((post) => {
             const mediaUrl = extractMediaUrl(post); // Get the media URL or fallback image
             const author = post.data.author; // Access the author's username
-            const galleryData = post.data.gallery_data ? post.data.gallery_data : null;
+            const galleryData = post.data.gallery_data
+              ? post.data.gallery_data
+              : null;
             const hoursSincePost = calculateHoursSincePost(
               post.data.created_utc
             ); // Calculate hours since posting
@@ -64,9 +64,6 @@ const HomePage = ({ posts, setPosts, loadMoreRef, isLoading, accessToken }) => {
           )}
         </div>
       </div>
-
-      <Search />
-      <PostList />
     </div>
   );
 };

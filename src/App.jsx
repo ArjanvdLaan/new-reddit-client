@@ -73,9 +73,9 @@ const App = () => {
 
       // Keep fetching until 3 valid posts
       while (validPosts.length < 3) {
-        // Fetch 20 posts in one go to increase the chances of getting 3 valid ones
+        // Fetch 10 posts in one go to increase the chances of getting 3 valid ones
         const response = await axios.get(
-          `https://oauth.reddit.com/r/${selectedSubreddit}/hot?limit=20&raw_json=1${
+          `https://oauth.reddit.com/r/${selectedSubreddit}/hot?limit=10&raw_json=1${
             currentAfter ? `&after=${currentAfter}` : ""
           }`,
           {
@@ -172,6 +172,7 @@ const App = () => {
 
   // Display login button if no auth code or access token is available
   if (!authCode && !accessToken) {
+    console.log(authCode, accessToken);
     return (
       <div>
         <button onClick={() => (window.location.href = getRedditAuthUrl())}>

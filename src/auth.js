@@ -45,3 +45,11 @@ export const getAccessToken = async (code) => {
     return null;
   }
 };
+
+//TESTING PURPOSES
+export const deleteAccessToken = () => {
+  localStorage.removeItem('accessToken'); //delete token for testing purposes
+  console.log('Access Token Deleted');
+};
+
+// deleteAccessToken();
