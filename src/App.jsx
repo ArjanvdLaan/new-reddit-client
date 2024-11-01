@@ -14,9 +14,11 @@ import "./App.css";
 
 const App = () => {
   const [authCode, setAuthCode] = useState(null);
-  const [accessToken, setAccessToken] = useState(
-    localStorage.getItem("accessToken")
-  ); // Retrieve token from localStorage
+  // Retrieve access token from localStorage or set to null if not found
+  const [accessToken, setAccessToken] = useState(() => {
+    const storedToken = localStorage.getItem("accessToken");
+    return storedToken ? storedToken : null;
+  }); 
   const [posts, setPosts] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(!!accessToken); // Track authentication state
   const [page, setPage] = useState(1); // State to keep track of which page (batch) of posts we are on
@@ -27,11 +29,11 @@ const App = () => {
   const [subreddit, setSubreddit] = useState("pics");
 
   useEffect(() => {
-    // Check if the URL has a code parameter
+    // Check if the URL has a code parameter (this happens after returning from Reddit login)
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get("code");
 
-    // Check if an access token exists in localStorage
+    // If there's no access token and we have an auth code, use it to get an access token
     if (!accessToken && code) {
       console.log("Authorization Code Detected:", code);
       setAuthCode(code);
@@ -39,22 +41,23 @@ const App = () => {
       console.log(
         "No Access Token or Authorization Code found. Redirecting to Reddit login..."
       );
-      window.location.href = getRedditAuthUrl(); // Trigger Reddit login only if necessary
-    }
+      // Redirect the user to Reddit login if there is no authCode and no accessToken
+      window.location.href = getRedditAuthUrl();
+    } 
   }, [accessToken]);
 
   useEffect(() => {
-    // Exchange the code for an access token
     if (authCode) {
       getAccessToken(authCode).then((token) => {
         if (token) {
           setAccessToken(token);
-          setIsAuthenticated(true); // Mark as authenticated
+          localStorage.setItem("accessToken", token); // Save token to localStorage
+          window.history.replaceState({}, document.title, window.location.pathname); // Clean the URL
         } else {
-          // If accessToken is null, clear authCode and attempt login again
+          console.log("Failed to get access token. Redirecting to login...");
           setAuthCode(null);
           localStorage.removeItem("accessToken");
-          window.location.href = getRedditAuthUrl(); // Re-initiate the login flow if token retrieval fails
+          window.location.href = getRedditAuthUrl();
         }
       });
     }
@@ -169,7 +172,7 @@ const App = () => {
       }
     };
   }, [isLoading]);
-
+  
   // Display login button if no auth code or access token is available
   if (!authCode && !accessToken) {
     console.log(authCode, accessToken);
