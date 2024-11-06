@@ -10,9 +10,7 @@ const HomePage = ({ posts, setPosts, loadMoreRef, isLoading, accessToken }) => {
   return (
     <div className="homepage-container">
       <div className="space-div"></div>
-      <div className="title-container">
-        <Icons />
-      </div>
+
       <div>
         <ul>
           {console.log("Homepage gets rendered!")}
@@ -63,6 +61,9 @@ const HomePage = ({ posts, setPosts, loadMoreRef, isLoading, accessToken }) => {
             </>
           )}
         </div>
+      </div>
+      <div className="title-container">
+        <Icons />
       </div>
     </div>
   );

@@ -91,7 +91,7 @@ const MediaViewer = ({ post, mediaUrl, postUrl, galleryData }) => {
               alt="Post Preview"
               onClick={openViewer}
             />
-            <div className="gallery-indicator">Click for gallery</div>
+            <div className="gallery-indicator" onClick={openViewer}>Click for gallery</div>
           </div>
         ) : (
           <img
