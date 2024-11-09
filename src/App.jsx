@@ -38,21 +38,21 @@ const App = () => {
       console.log("Authorization Code Detected:", code);
       setAuthCode(code);
     } else if (!accessToken && !code) {
-      console.log(
-        "No Access Token or Authorization Code found. Redirecting to Reddit login..."
-      );
-      // Redirect the user to Reddit login if there is no authCode and no accessToken
-      window.location.href = getRedditAuthUrl();
-    } 
+      console.log("No access token or auth code found, redirecting to login");
+      window.location.href = getRedditAuthUrl(); // Trigger login flow if nothing is available
+    }
   }, [accessToken]);
 
   useEffect(() => {
-    if (authCode) {
+    if (authCode && !accessToken) {
       getAccessToken(authCode).then((token) => {
         if (token) {
+          console.log("Access Token Retrieved:", token);
           setAccessToken(token);
+          setIsAuthenticated(true); // Mark as authenticated
           localStorage.setItem("accessToken", token); // Save token to localStorage
-          window.history.replaceState({}, document.title, window.location.pathname); // Clean the URL
+          // Clean the URL to remove auth code after successful exchange
+          window.history.replaceState({}, document.title, window.location.pathname); 
         } else {
           console.log("Failed to get access token. Redirecting to login...");
           setAuthCode(null);
@@ -61,7 +61,7 @@ const App = () => {
         }
       });
     }
-  }, [authCode]);
+  }, [authCode, accessToken]);
 
   // Function to fetch posts from Reddit API
   const fetchPosts = async (pageNum, selectedSubreddit) => {
